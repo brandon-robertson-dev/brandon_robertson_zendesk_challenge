@@ -8,7 +8,7 @@ function Single(props) {
 
   const getSingleTicket = async (ticketId) => {
     try {
-      const response = await axios.get(`/${ticketId}`)
+      const response = await axios.get(`/api/${ticketId}`)
       setData(response.data)
     } catch(err) {
       console.log(err)

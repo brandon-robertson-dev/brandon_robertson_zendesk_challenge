@@ -10,9 +10,9 @@ function All() {
 
   const getTickets = async () => {
     try {
-      const response = await axios.get('/all')
+      const response = await axios.get('/api/all')
       setData(response.data)
-      setPageData(_.chunk(response.data.tickets, 25))
+      setPageData(_.chunk(response.data, 25))
     } catch(err) {
       console.log(err)
     }
@@ -20,7 +20,7 @@ function All() {
 
   useEffect(() => {
     getTickets()
-  }, [])
+  }, [data.length])
 
   return (
     <Fragment>
@@ -28,10 +28,10 @@ function All() {
       {
         pageData.length >= 1 && pageData[page].map((item, index) => {
           return(
-            <Fragment>
-              <Link to={`/${item.id}`} key={index} >{item.subject}</Link>
+            <div key={index} >
+              <Link to={`/${item.id}`}>{item.subject}</Link>
               <br/>
-            </Fragment>
+            </div>
           )
         })
       }

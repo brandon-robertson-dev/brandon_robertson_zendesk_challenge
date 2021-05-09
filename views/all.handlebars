@@ -1,0 +1,19 @@
+<h2>Tickets: </h2>
+{{#if error}}
+  <p>{{error}}</p>
+  <p>Please try again later</p>
+{{/if}}
+{{#if tickets}}
+  {{#each tickets}}
+    <div>
+      <a href='http://localhost:5000/zendesk/{{id}}'>{{subject}}</a>
+      <br/>
+    </div>
+  {{/each}}
+  {{#if links.prev}}
+    <a href='http://localhost:5000/zendesk/all/?prev={{links.prev}}'>Previous</a>
+  {{/if}}
+  {{#if links.next}}
+    <a href='http://localhost:5000/zendesk/all/?next={{links.next}}'>Next</a>
+  {{/if}}
+{{/if}}
