@@ -12,7 +12,7 @@ function All() {
     try {
       const response = await axios.get('/api/all')
       setData(response.data)
-      setPageData(_.chunk(response.data, 25))
+      setPageData(_.chunk(response.data.tickets, 25))
     } catch(err) {
       console.log(err)
     }
@@ -24,32 +24,46 @@ function All() {
 
   return (
     <Fragment>
-      <h2>Tickets :</h2>
       {
-        pageData.length >= 1 && pageData[page].map((item, index) => {
-          return(
-            <div key={index} >
-              <Link to={`/${item.id}`}>{item.subject}</Link>
-              <br/>
-            </div>
-          )
-        })
+        data.error && (
+          <Fragment>
+            <p>{data.error}</p>
+          </Fragment>
+        )
       }
-      <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
-        {
-          page + 1 === 1 ? 
-          <p> x </p>
-          :
-          <p onClick={() => setPage(page - 1)} > {'<'} </p>
-        }
-        <p> {page + 1} / {pageData.length} </p>
-        {
-          page + 1 === pageData.length ? 
-          <p> x </p>
-          :
-          <p onClick={() => setPage(page + 1)} > {'>'} </p>
-        }
-      </div>
+      {
+        data.tickets && (
+          <Fragment>
+            <h2>Tickets :</h2>
+            <p>Total Tickets: {data.count}</p>
+            {
+              pageData.length >= 1 && pageData[page].map((item, index) => {
+                return(
+                  <div key={index} >
+                    <Link to={`/${item.id}`}>{item.subject}</Link>
+                    <br/>
+                  </div>
+                )
+              })
+            }
+            <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+              {
+                page + 1 === 1 ? 
+                <button> x </button>
+                :
+                <button onClick={() => setPage(page - 1)}> {'<'} </button>
+              }
+              <p> {page + 1} / {pageData.length} </p>
+              {
+                page + 1 === pageData.length ? 
+                <button> x </button>
+                :
+                <button onClick={() => setPage(page + 1)}> {'>'} </button>
+              }
+            </div>
+          </Fragment>
+        )
+      }
     </Fragment>
   )
 }

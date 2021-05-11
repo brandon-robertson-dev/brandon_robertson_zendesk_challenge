@@ -1,9 +1,0 @@
-<a href='http://localhost:5000/zendesk/all'>Back to All</a>
-{{#if error}}
-  <p>{{error}}</p>
-{{/if}}
-{{#if ticket}}
-  <p>Requester: {{ticket.requester_id}}</p>
-  <h2>{{ticket.subject}}</h2>
-  <p>{{ticket.description}}</p>
-{{/if}}

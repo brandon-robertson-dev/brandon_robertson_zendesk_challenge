@@ -9,6 +9,7 @@ function Single(props) {
   const getSingleTicket = async (ticketId) => {
     try {
       const response = await axios.get(`/api/${ticketId}`)
+      console.log(response)
       setData(response.data)
     } catch(err) {
       console.log(err)
@@ -21,7 +22,7 @@ function Single(props) {
 
   return (
     <Fragment>
-      <Link to='/'>Back to All</Link>
+      <button><Link to='/'>Back to All</Link></button>
       {
         data.error && (
           <Fragment>
