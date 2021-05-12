@@ -8,6 +8,7 @@ async function axiosGet(url, id = null) {
     }})
     return response.data
   } catch (err) {
+    console.log(err)
     const error = id ? { error: `Ticket ${id} not available` } : { error: 'Zendesk API unavailable' }
     return error
   }

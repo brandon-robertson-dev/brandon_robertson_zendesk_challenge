@@ -1,4 +1,5 @@
 const { axiosGet } = require('./utilities')
+const chunk = require('lodash.chunk')
 
 async function getAllTickets(req, res) {
   try {
@@ -11,16 +12,18 @@ async function getAllTickets(req, res) {
       const response = await axiosGet(url)
       if (response.error) {
         res.send(response)
-        url = null
+        break
       }
       data.tickets = [...data.tickets, ...response.tickets]
       data.count = response.count
       url = response.next_page
     }
-    res.send(data)
+    if (url === null) {
+      data.tickets = chunk(data.tickets, 25)
+      res.send(data)
+    }
   } catch(err) {
-    console.log(err.message)
-    res.send(err.message)
+    res.send({ error: 'Zendesk API unavailable' })
   }
 }
 
@@ -30,8 +33,7 @@ async function getSingleTicket(req, res) {
     const response = await axiosGet(url, req.params.id)
     res.send(response)
   } catch(err) {
-    console.log(err.message)
-    res.send(err.message)
+    res.send({ error: 'Zendesk API unavailable' })
   }
 }
 

@@ -1,18 +1,15 @@
 import axios from 'axios'
-import _ from 'lodash'
 import { Fragment, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 function All() {
   const [ data, setData ] = useState({})
-  const [ pageData, setPageData ] = useState([])
   const [ page, setPage ] = useState(0)
 
   const getTickets = async () => {
     try {
       const response = await axios.get('/api/all')
       setData(response.data)
-      setPageData(_.chunk(response.data.tickets, 25))
     } catch(err) {
       console.log(err)
     }
@@ -37,7 +34,7 @@ function All() {
             <h2>Tickets :</h2>
             <p>Total Tickets: {data.count}</p>
             {
-              pageData.length >= 1 && pageData[page].map((item, index) => {
+              data.tickets.length >= 1 && data.tickets[page].map((item, index) => {
                 return(
                   <div key={index} >
                     <Link to={`/${item.id}`}>{item.subject}</Link>
@@ -47,15 +44,15 @@ function All() {
               })
             }
             <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
-              {
+              { 
                 page + 1 === 1 ? 
                 <button> x </button>
                 :
                 <button onClick={() => setPage(page - 1)}> {'<'} </button>
               }
-              <p> {page + 1} / {pageData.length} </p>
+              <p> {page + 1} / {data.tickets.length} </p>
               {
-                page + 1 === pageData.length ? 
+                page + 1 === data.tickets.length ? 
                 <button> x </button>
                 :
                 <button onClick={() => setPage(page + 1)}> {'>'} </button>
@@ -69,10 +66,3 @@ function All() {
 }
 
 export default All
-
-// pageData[page].map((item, index) => {
-//   console.log(item)
-//   return(
-//     <p key={index} >{item.subject}</p>
-//   )
-// })
