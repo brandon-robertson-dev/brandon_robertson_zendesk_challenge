@@ -22,7 +22,7 @@ function Single(props) {
 
   return (
     <Fragment>
-      <button><Link to='/'>Back to All</Link></button>
+      <Link to='/'>Back to All</Link>
       {
         data.error && (
           <Fragment>
