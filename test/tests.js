@@ -12,13 +12,31 @@ describe('Zendesk API Challenge - Working Tests', () => {
   })
 })
 
-describe('Zendesk API Challenge - Non-Working Routes - Single', () => {
-  it('should not return any ticket', async () => {
-    const response = await axios.get('http://localhost:5000/api/404')
-    expect(response.data.error).to.equal('Ticket 404 not available')
+describe('Zendesk API Challenge - Non-Working Routes', () => {
+  it('should not return any ticket - 400 Bad Request', async () => {
+    const response = await axios.get('http://localhost:5000/api/gimmeaticket')
+    expect(response.data.error).to.equal('Bad Request')
   })
-  it('should not return any ticket', async () => {
+  it('should not return any ticket - 401 Unauthorized', async () => {
+    const response = await axios.get('http://localhost:5000/api/12', {
+      params: {
+        username: 'ionlywantticket2@notashiftyguy.com',
+        password: 'pleasejustgimmetheticket'
+      }
+    })
+    expect(response.data.error).to.equal('Unauthorized, check Username & Password')
+  })
+  it('should not return any tickets - 401 Unauthorized', async () => {
+    const response = await axios.get('http://localhost:5000/api/all', {
+      params: {
+        username: 'gimmetickets@ticketguy.com',
+        password: 'ilovetickets'
+      }
+    })
+    expect(response.data.error).to.equal('Unauthorized, check Username & Password')
+  })
+  it('should not return any ticket - 404 Ticket not available', async () => {
     const response = await axios.get('http://localhost:5000/api/1000')
-    expect(response.data.error).to.equal('Ticket 1000 not available')
+    expect(response.data.error).to.equal('Ticket 1000 not found, check ticket id and try again later')
   })
 })

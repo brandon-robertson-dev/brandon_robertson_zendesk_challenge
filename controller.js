@@ -1,15 +1,19 @@
 const { axiosGet } = require('./utilities')
 const chunk = require('lodash.chunk')
 
+const apiError = { error: 'Zendesk API unavailable' }
+
 async function getAllTickets(req, res) {
   try {
+    const username = req.query.username
+    const password = req.query.password
     let url = 'https://nobrandonsclub.zendesk.com/api/v2/tickets.json'
     let data = {
       tickets: [],
       count: 0
     }
     while (url !== null) {
-      const response = await axiosGet(url)
+      const response = await axiosGet(url, username, password)
       if (response.error) {
         res.send(response)
         break
@@ -23,17 +27,19 @@ async function getAllTickets(req, res) {
       res.send(data)
     }
   } catch(err) {
-    res.send({ error: 'Zendesk API unavailable' })
+    res.send(apiError)
   }
 }
 
 async function getSingleTicket(req, res) {
   try {
+    const username = req.query.username
+    const password = req.query.password
     const url = `https://nobrandonsclub.zendesk.com/api/v2/tickets/${req.params.id}.json`
-    const response = await axiosGet(url, req.params.id)
+    const response = await axiosGet(url, username, password, req.params.id)
     res.send(response)
   } catch(err) {
-    res.send({ error: 'Zendesk API unavailable' })
+    res.send(apiError)
   }
 }
 

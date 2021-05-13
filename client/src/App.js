@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import All from './All'
@@ -10,7 +10,7 @@ function App() {
       <h1>Ticket Viewer</h1>
       <Router>
         <Switch>
-          <Route exact path='/' component={All} />
+          <Route exact path='/' render={All} />
           <Route exact path='/:id' component={Single} />
         </Switch>
       </Router>
