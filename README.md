@@ -19,3 +19,17 @@ http://localhost:3000/:id - will display the ticket with matching ID
 To run the tests make sure you are in the ``brandon_robertson_zendesk_challenge`` folder then you need to use ``cd test`` to access the test folder then run ``mocha test.js``
 
 ## Libraries:
+In this project I used a handful of libraries mostly just to make it easier to server the data.
+
+- Express
+  - I used Express to run a server where I call the Zendesk API to retrieve data and send it to my React.js frontend.
+- Axios
+  - I used Axios to be how I did all my GET requests because I found it easiest to setup Basic Auth for the Zendesk API but also it was a small size.
+- Lodash(Chunk)
+  - I used the Lodash Chunk function to get the pagination of 25 tickets per page, I thought it made sense to pull all current tickets and then serve them in static data on the All component.
+- Concurrently
+  - I used Concurrently to help the user start both parts of the app at the same time, it's not a necessary library but it just makes it easier to start it. 
+- Chai/Mocha
+  - I used Chai for running my tests.
+- Nodemon
+  - I used Nodemon just while I was building the Node/Express server so I don't have to restart it each time.
