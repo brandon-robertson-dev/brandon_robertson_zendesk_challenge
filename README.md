@@ -12,8 +12,10 @@ by Brandon Robertson
 8. Go to http://localhost:3000 to access the app
 
 ## Usage:
-http://localhost:3000/ - will display all tickets
-http://localhost:3000/:id - will display the ticket with matching ID
+- http://localhost:3000/
+  - will display all tickets
+- http://localhost:3000/:id
+  - will display the ticket with matching ID
 
 ## Tests:
 To run the tests make sure you are in the ``brandon_robertson_zendesk_challenge`` folder then you need to use ``cd test`` to access the test folder then run ``mocha test.js``
