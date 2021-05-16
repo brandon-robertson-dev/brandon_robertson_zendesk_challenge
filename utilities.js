@@ -5,8 +5,8 @@ async function axiosGet(url, user = null, pass = null, id = null) {
     let username
     let password
     if (!user && !pass) {
-      username = process.env.EMAIL
-      password = process.env.PASSWORD
+      username = `${process.env.EMAIL}`
+      password = `${process.env.PASSWORD}`
     } else if (user && pass) {
       username = user
       password = pass

@@ -33,16 +33,19 @@ function All() {
           <Fragment>
             <h2>Tickets :</h2>
             <p>Total Tickets: {data.count}</p>
+            <ul>
             {
               data.tickets.length >= 1 && data.tickets[page].map((item, index) => {
                 return(
-                  <div key={index} >
-                    <Link to={`/${item.id}`}>{item.subject}</Link>
-                    <br/>
-                  </div>
+                  <li key={index} >
+                    <Link to={`/${item.id}`} >
+                      {item.subject}
+                    </Link>
+                  </li>
                 )
               })
             }
+            </ul>
             <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
               { 
                 page + 1 === 1 ? 
